@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'apps.accounts',
     'apps.marketplace',
     'apps.contracts',
-    'apps.messaging'
+    'apps.messaging',
     'apps.notifications',
     'apps.payments',
     'apps.reviews',
