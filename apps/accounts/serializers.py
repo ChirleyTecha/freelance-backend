@@ -57,7 +57,7 @@ class WorkerCreateSerializer(serializers.ModelSerializer):
 
 
 class WorkerSerializer(serializers.ModelSerializer):
-    employer_name = serializers.CharField(source="user.name", read_only=True)
+    name = serializers.CharField(source="user.name", read_only=True)
 
     class Meta:
         model = Worker
