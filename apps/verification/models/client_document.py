@@ -1,9 +1,9 @@
 from django.db import models
 
+
 class Document(models.Model):
-
-
-    employer = models.OneToOneField('accounts.Employer', on_delete=models.CASCADE)
+    employer = models.OneToOneField(
+        'accounts.Employer', on_delete=models.CASCADE)
 
     document_type = models.CharField(max_length=100)
     file_path = models.CharField(max_length=255)
@@ -11,8 +11,11 @@ class Document(models.Model):
     is_validated = models.BooleanField(default=False)
     date_uploaded = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        db_table = 'client_documents'
+
     def validate(self):
-        
+
         self.is_validated = True
         self.save()
 

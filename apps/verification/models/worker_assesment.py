@@ -13,6 +13,9 @@ class Assessment(models.Model):
     is_approved = models.BooleanField(default=False)
     date_created = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        db_table = 'worker_assesments'
+
     def register(self):
         """
         This method registers the assessment.
