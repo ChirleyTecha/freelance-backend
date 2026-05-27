@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'apps.notifications',
     'apps.payments',
     'apps.reviews',
-    'apps.verification'
+    'apps.verification',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -106,6 +107,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'accounts.User'
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
@@ -123,3 +126,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+
+    ],
+}
