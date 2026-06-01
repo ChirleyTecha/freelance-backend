@@ -29,6 +29,17 @@ class Register(APIView):
         return Response(UserSerializer(user).data, status=status.HTTP_201_CREATED)
 
 
+class MyProfile(APIView):
+    """
+    Fetch information of the loggedin user 
+    """
+
+    def get(self, request, format=None):
+        user = request.user
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
+
+
 class UserList(APIView):
     permission_classes = [IsAuthenticated]
 
