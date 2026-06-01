@@ -1,4 +1,5 @@
 import logging
+from django.http import Http404
 from rest_framework import status
 from django.shortcuts import render
 from django.contrib.auth import get_user_model
@@ -36,6 +37,26 @@ class MyProfile(APIView):
 
     def get(self, request, format=None):
         user = request.user
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
+
+
+class UserDetail(APIView):
+    permission_classes = [IsAdminUser, IsAuthenticated]
+
+    """
+    Retrieve, update or delete a user
+    """
+
+    def get_object(self, pk):
+        try:
+            user = User.objects.get(pk=pk)
+            return user
+        except User.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        user = self.get_object(pk)
         serializer = UserSerializer(user)
         return Response(serializer.data)
 
