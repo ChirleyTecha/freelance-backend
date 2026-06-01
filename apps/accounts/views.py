@@ -87,6 +87,25 @@ class EmployerList(APIView):
         return Response(serializer.data)
 
 
+class EmployerDetail(APIView):
+    permission_classes = [IsAdminUser, IsAuthenticated]
+    """
+    Retrieve, update or delete a employer profile
+    """
+
+    def get_object(self, pk):
+        try:
+            employer = Employer.objects.get(pk=pk)
+            return employer
+        except Employer.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        employer = self.get_object(pk)
+        serializer = EmployerSerializer(employer)
+        return Response(serializer.data)
+
+
 class MyEmployer(APIView):
     """
     View employer details or create one
@@ -133,6 +152,24 @@ class WorkerList(APIView):
 
         serializer = WorkerSerializer(qs, many=True)
 
+        return Response(serializer.data)
+
+
+class WorkerDetail(APIView):
+    """
+    Rretrive or delete a worker profile
+    """
+
+    def get_object(self, pk):
+        try:
+            worker = Worker.objects.select_related("user").get(pk=pk)
+            return worker
+        except Worker.DoesNotExist:
+            raise Http404
+
+    def get(self, reques, pk, format=None):
+        worker = self.get_object(pk)
+        serializer = WorkerSerializer(worker)
         return Response(serializer.data)
 
 
